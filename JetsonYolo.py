@@ -42,7 +42,9 @@ def gstreamer_pipeline(
         )
     )
 
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
+out = cv2.VideoWriter('./demo.avi', fourcc, 30, (1280, 1280))
 # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
 cap = cv2.VideoCapture('./fair.mp4')
 if cap.isOpened():
@@ -63,11 +65,15 @@ if cap.isOpened():
                 color = Object_colors[Object_classes.index(label)]
                 frame = cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), color, 2) 
                 frame = cv2.putText(frame, f'{label} ({str(score)})', (xmin,ymin), cv2.FONT_HERSHEY_SIMPLEX , 0.75, color, 1, cv2.LINE_AA)
+        res = cv2.resize(frame, (1280,1280))
+        cv2.imwrite('./demo.jpg', res)
+        out.write(res)
 
-        cv2.imshow("CSI Camera", frame)
-        keyCode = cv2.waitKey(30)
-        if keyCode == ord('q'):
-            break
+
+        #cv2.imshow("CSI Camera", frame)
+        #keyCode = cv2.waitKey(30)
+        #if keyCode == ord('q'):
+        #    break
     cap.release()
     cv2.destroyAllWindows()
 else:
