@@ -46,9 +46,9 @@ def gstreamer_pipeline(
 # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
 cap = cv2.VideoCapture('./fair.mp4')
 if cap.isOpened():
-    window_handle = cv2.namedWindow("CSI Camera", cv2.WINDOW_AUTOSIZE)
+    #window_handle = cv2.namedWindow("CSI Camera", cv2.WINDOW_AUTOSIZE)
     # Window
-    while cv2.getWindowProperty("CSI Camera", 0) >= 0:
+    while True:
         ret, frame = cap.read()
         if ret:
             # detection process
